@@ -19,7 +19,7 @@ volatile int humidity_alarm_value = 30; //Needs to be updated to sensible value
 volatile double ampere_constant = 1; // This is the constant for calculating the amp draw from the voltage across a shunt resistor 
 double battery_temp;
 double dt;
-double watt_hours_left = read_from_eeprom();
+double watt_hours_left;
 double humidity_front = 0;
 double humidity_back = 0;
 boolean temp_alarm_trigged = 0;
@@ -39,6 +39,7 @@ pinMode(go_to_surface_pin, OUTPUT);
 //SPI pins for display etc must be setup here	
 timer.setInterval(30000, save_to_eeprom);
 timer.setInterval(10, update_watt_hours_left);
+watt_hours_left = read_from_eeprom();
 digitalWrite(go_to_surface_pin, LOW);
 }
 
@@ -103,12 +104,18 @@ void update_watt_hours_left()
 
 double read_from_eeprom()
 {
-	EEPROM.read(0)//Read ffrom eeprom memory
+  	int mod = EEPROM.read(0);//Read from eeprom memory
+        int base = EEPROM.read(1);
+        watt_hours_left = base*256+mod;
 }
 
 double save_to_eeprom()
 {
-	EEPROM.write(0, watt_hours_left);//Save to eeprom memory position 0, arduino has total of 512byte eeprom and is rated to 100 000 cycles (May have to be very careful here)
+        int mod = watt_hours_left%256;
+        int base = watt_hours_left/256; 
+	EEPROM.write(0, mod);//Save to eeprom memory position 0, arduino has total of 512byte eeprom and is rated to 100 000 cycles (May have to be very careful here)
+        EEPROM.write(1, base);
+}
 }
 
 void check_temp()
