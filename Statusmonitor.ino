@@ -104,7 +104,7 @@ void update_watt_hours_left()
 
 double read_from_eeprom()
 {
-  	int mod = EEPROM.read(0);//Read from eeprom memory
+        int mod = EEPROM.read(0);//Read from eeprom memory
         int base = EEPROM.read(1);
         watt_hours_left = base*256+mod;
 }
