@@ -2,8 +2,8 @@
 
 volatile int alarm_temperature = 70; //This should be a safe temperature for the batteries to operate under
 volatile double initial_watt_hours = 500;
-volatile int humidity_alarm_value = 30; //Needs to be updatet to sensable value
-volatile double ampere_constant = 1; //Needs to be updatet to sensable value
+volatile int humidity_alarm_value = 30; //Needs to be updated to sensible value
+volatile double ampere_constant = 1; //Needs to be updated to sensible value
 double battery_temp;
 double watt_hours_left = read_from_eeprom();
 double humidity_front = 0;
