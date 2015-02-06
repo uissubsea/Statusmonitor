@@ -37,8 +37,8 @@ pinMode(humidity_back_pin, INPUT);
 pinMode(resetswitch_pin, INPUT);
 pinMode(go_to_surface_pin, OUTPUT);
 //SPI pins for display etc must be setup here	
-timer.setInterval(30000, save_to_eeprom());
-timer.setInterval(10, update_watt_hours_left());
+timer.setInterval(30000, save_to_eeprom);
+timer.setInterval(10, update_watt_hours_left);
 digitalWrite(go_to_surface_pin, LOW);
 }
 
