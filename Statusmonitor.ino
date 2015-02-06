@@ -31,7 +31,7 @@ unsigned long pastMillis = 0;
 void setup()
 {
 
-	//Should setup values for i2c sensors here
+//Should setup values for i2c sensors here
 pinMode(humidity_front_pin, INPUT);
 pinMode(humidity_back_pin, INPUT);
 pinMode(resetswitch_pin, INPUT);
@@ -39,7 +39,7 @@ pinMode(go_to_surface_pin, OUTPUT);
 //SPI pins for display etc must be setup here	
 timer.setInterval(30000, save_to_eeprom);
 timer.setInterval(10, update_watt_hours_left);
-watt_hours_left = read_from_eeprom();
+read_from_eeprom();
 digitalWrite(go_to_surface_pin, LOW);
 }
 
@@ -102,27 +102,26 @@ void update_watt_hours_left()
 	}
 }
 
-double read_from_eeprom()
+void read_from_eeprom()
 {
         int mod = EEPROM.read(0);//Read from eeprom memory
         int base = EEPROM.read(1);
         watt_hours_left = base*256+mod;
 }
 
-double save_to_eeprom()
+void save_to_eeprom()
 {
-        int mod = watt_hours_left%256;
-        int base = watt_hours_left/256; 
-	EEPROM.write(0, mod);//Save to eeprom memory position 0, arduino has total of 512byte eeprom and is rated to 100 000 cycles (May have to be very careful here)
+        int mod = (int)watt_hours_left%256;
+        int base = (int)watt_hours_left/256; 
+		EEPROM.write(0, mod);//Save to eeprom memory position 0, arduino has total of 512byte eeprom and is rated to 100 000 cycles (May have to be very careful here)
         EEPROM.write(1, base);
 }
-}
+
 
 void check_temp()
 {
-	wire.read();
 	battery_temp = analogRead(temp_pin);
 	if (battery_temp > alarm_temperature){
-		temp_alarm_trigged = 1
+		temp_alarm_trigged = 1;
 	}
 }
