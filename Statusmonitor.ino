@@ -32,11 +32,11 @@ void setup()
 {
 
 //Should setup values for i2c sensors here
+//SPI pins for display etc must be setup here	
 pinMode(humidity_front_pin, INPUT);
 pinMode(humidity_back_pin, INPUT);
 pinMode(resetswitch_pin, INPUT);
 pinMode(go_to_surface_pin, OUTPUT);
-//SPI pins for display etc must be setup here	
 timer.setInterval(30000, save_to_eeprom);
 timer.setInterval(10, update_watt_hours_left);
 read_from_eeprom();
@@ -86,7 +86,7 @@ void check_humidity()
 		else if (humidity_back > humidity_alarm_value)
 		{
 		humidity_alarm_trigged = 1;
-	}
+		}
 }
 
 void update_watt_hours_left()
@@ -121,7 +121,8 @@ void save_to_eeprom()
 void check_temp()
 {
 	battery_temp = analogRead(temp_pin);
-	if (battery_temp > alarm_temperature){
+	if (battery_temp > alarm_temperature)
+	{
 		temp_alarm_trigged = 1;
 	}
 }
