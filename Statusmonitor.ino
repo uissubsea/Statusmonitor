@@ -94,7 +94,7 @@ void update_watt_hours_left()
 	dt = millis()-pastMillis;
 	pastMillis = millis();
 	double ampere = analogRead(voltage_pin)*ampere_constant;
-	double watt = ampere * voltage;
+	double watt = ampere * voltage*1000*3600;
 	watt_hours_left -= watt*dt;
 	if (watt_hours_left < minimum_battery)
 	{
