@@ -68,9 +68,7 @@ void check_switches()
 
         	if (digitalRead(resetswitch_pin))
 	{
-        Serial.println("Resetpin pushed, resetting value:");
 	watt_minutes_left = (float)initial_watt_hours*3600;
-        Serial.println("Watt_minutes_left");
 	}
 	if (humidity_alarm_trigged && temp_alarm_trigged && battery_low_triggered)
 	{
