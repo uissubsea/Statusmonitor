@@ -19,7 +19,7 @@ volatile int humidity_alarm_value = 1; //Needs to be updated to sensible value
 volatile double ampere_constant = 1; // This is the constant for calculating the amp draw from the voltage across a shunt resistor 
 double battery_temp;
 double dt;
-double watt_minutes_left; //bør settes til double
+double watt_minutes_left; //bÃ¸r settes til double
 double humidity_front = 0;
 double humidity_back = 0;
 boolean temp_alarm_trigged = 0;
@@ -146,3 +146,4 @@ void check_temp()
 		temp_alarm_trigged = 1;
 	}
 }
+

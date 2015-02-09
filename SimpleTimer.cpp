@@ -239,3 +239,4 @@ void SimpleTimer::toggle(int numTimer) {
 int SimpleTimer::getNumTimers() {
     return numTimers;
 }
+
