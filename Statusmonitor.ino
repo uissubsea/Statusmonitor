@@ -37,8 +37,7 @@ pinMode(humidity_back_pin, INPUT);
 pinMode(resetswitch_pin, INPUT);
 pinMode(go_to_surface_pin, OUTPUT);
 digitalWrite(go_to_surface_pin, HIGH);
-Serial.println("Reading Eeprom");
-timer.setInterval(30000, save_to_eeprom);
+timer.setInterval(3000, save_to_eeprom);//Must be set to 30000!
 
 digitalWrite(go_to_surface_pin, HIGH);
 Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
@@ -69,9 +68,9 @@ void check_switches()
 
         	if (digitalRead(resetswitch_pin))
 	{
-  
+        Serial.println("Resetpin pushed, resetting value:");
 	watt_minutes_left = (float)initial_watt_hours*3600;
-	
+        Serial.println("Watt_minutes_left");
 	}
 	if (humidity_alarm_trigged && temp_alarm_trigged && battery_low_triggered)
 	{
