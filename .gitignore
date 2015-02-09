@@ -1,0 +1,10 @@
+# Ignore all files
+*
+
+# except these
+!.gitignore
+!*.md
+!*.ino
+
+# even if they are in sub directories
+!*/
