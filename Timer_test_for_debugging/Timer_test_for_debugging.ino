@@ -10,6 +10,7 @@ int voltage_pin = 5; //This is the pin where you read the voltage input from the
 int temp_pin = 6; //Pin for reading temperature sensor.
 SimpleTimer timer; 
 
+
 volatile double voltage = 24; //Can be measured and implemented in watt integration code.
 volatile int alarm_temperature = 70; //This should be a safe temperature for the batteries to operate under
 volatile int initial_watt_hours = 500;
@@ -36,17 +37,19 @@ pinMode(humidity_back_pin, INPUT);
 pinMode(resetswitch_pin, INPUT);
 pinMode(go_to_surface_pin, OUTPUT);
 digitalWrite(go_to_surface_pin, HIGH);
-timer.setInterval(30000, save_to_eeprom);
 Serial.println("Reading Eeprom");
-read_from_eeprom();
+timer.setInterval(30000, save_to_eeprom);
+
 digitalWrite(go_to_surface_pin, HIGH);
 Serial.begin(9600); // opens serial port, sets data rate to 9600 bps
-Serial.println("Setup OK");
+Serial.println("Setup OK, reading memory:");
+read_from_eeprom();
 }
 
 
 void loop()
 {
+  timer.run();
         update_watt_minutes_left();
 	check_temp();
 	check_humidity();
@@ -102,33 +105,36 @@ void update_watt_minutes_left()
 	{
 		battery_low_triggered = 1;
 	}
-        
-Serial.println("Watthours:");
-Serial.println(watt_minutes_left/3600);
-Serial.println("Wattminutes:");
-Serial.println(watt_minutes_left);
-}
+        }
 
 void read_from_eeprom()
-{
+{       
+        Serial.println("Reading eeprom:");
         int mod = EEPROM.read(0);//Read from eeprom memory
         int base = EEPROM.read(1);
         int watt_hours_left = base*256+mod;
-        watt_minutes_left = watt_hours_left*3600;
-Serial.println("Read eeprom ok:");
-Serial.println(watt_hours_left);
-delay(1000);
+        watt_minutes_left = (double)watt_hours_left*3600;
+        Serial.println(watt_hours_left);
 }
 
 void save_to_eeprom()
 {
-  int watt_hours_left = watt_minutes_left/3600;
+        Serial.println("Saving to eerpom!:");
+  
+        int watt_hours_left = watt_minutes_left/3600;
+        Serial.println(watt_hours_left);
         int mod = (int)(watt_hours_left%256);
         int base = (int)(watt_hours_left/256); 
 	EEPROM.write(0, mod);//Save to eeprom memory position 0, arduino has total of 512byte eeprom and is rated to 100 000 cycles (May have to be very careful here)
         EEPROM.write(1, base);
         Serial.println("Saved to eeprom ok:");
         Serial.println(watt_hours_left);
+Serial.println("Reading out from eeprom to confirm:");
+        int mod_confirm = EEPROM.read(0);//Read from eeprom memory
+        int base_confirm = EEPROM.read(1);
+        int watt_hours_left_confirm = base_confirm*256+mod_confirm;
+        Serial.println(watt_hours_left_confirm);
+
 }
 
 
