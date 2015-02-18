@@ -7,7 +7,7 @@ int humidity_front_pin = 1;//Must be set to a reasonable and available analog pi
 int humidity_back_pin = 2;//Must be set to a reasonable and available analog pin
 int resetswitch_pin = 3;//Must be set to a reasonable and available digital pin
 int go_to_surface_pin = 13;//Must be set to a reasonable and available digital pin
-int voltage_pin = 5; //This is the pin where you read the voltage input from the shunt resistor. Must be a analog input.
+int voltage_pin = 0; //This is the pin where you read the voltage input from the shunt resistor. Must be a analog input.
 
 SimpleTimer timer; 
 Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
@@ -32,7 +32,7 @@ double pastMillis = 0;
 
 void setup()
 {
-//Connect I2C pins to 4 (SDA)and 5 (SCL).
+//Connect I2C pins to A4 (SDA)and A5 (SCL).
 pinMode(humidity_front_pin, INPUT);
 pinMode(humidity_back_pin, INPUT);
 pinMode(resetswitch_pin, INPUT);
