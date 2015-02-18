@@ -3,11 +3,11 @@
 #include <wire.h>
 #include <EEPROM.h>
 
-int humidity_front_pin = 1;//Must be set to a reasonable and available analog pin
-int humidity_back_pin = 2;//Must be set to a reasonable and available analog pin
-int resetswitch_pin = 3;//Must be set to a reasonable and available digital pin
+int humidity_front_pin = 1;
+int humidity_back_pin = 2;
+int resetswitch_pin = 3;
 int go_to_surface_pin = 13;//Must be set to a reasonable and available digital pin
-int voltage_pin = 0; //This is the pin where you read the voltage input from the shunt resistor. Must be a analog input.
+int voltage_pin = 4; //This is the pin where you read the voltage input from the shunt resistor. Must be a analog input.
 
 SimpleTimer timer; 
 Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
