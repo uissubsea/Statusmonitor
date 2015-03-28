@@ -4,18 +4,18 @@
 #include <EEPROM.h>
 #include <LiquidCrystal_I2C.h>
 
-
-int humidity_front_pin = 1;
-int humidity_back_pin = 2;
+//Digital pin layout:
 int resetswitch_pin = 3;
 int go_to_surface_pin = 13;	//Must be set to a reasonable and available digital pin
-int voltage_pin = 3;		//This is the pin where you read the voltage input from voltage divider, from the battery v++. 42 V(max) = 5 V
-int shunt_pin = 0;			//This is the pin where you read the voltage input from the shunt resistor. Must be a analog input.
-int cell_voltage_pin = 6;	//Reads the value of each batterycell througt a decoder. 
 
-//I2C bus:
-//Pin A4 is SDA
-//Pin A5 is SCL
+//Analog pin layout:
+int shunt_pin = 0;			//This is the pin where you read the voltage input from the shunt resistor. Must be a analog input.
+int humidity_front_pin = 1;
+int humidity_back_pin = 2;
+int voltage_pin = 3;		//This is the pin where you read the voltage input from voltage divider, from the battery v++. 42 V(max) = 5 V
+//I2C bus: Pin 4 is SDA
+//I2C bus: Pin 5 is SCL
+int cell_voltage_pin = 6;	//Reads the value of each batterycell througt a decoder. 
 
 SimpleTimer timer; 
 Adafruit_MCP9808 tempsensor = Adafruit_MCP9808();
